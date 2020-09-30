@@ -1,0 +1,4 @@
+this is scene 1
+-choice 1->2
+-choice 2->3
+-choice 3->0

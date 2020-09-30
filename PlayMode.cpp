@@ -11,6 +11,8 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include <random>
+#include <iostream>
+#include <fstream>
 
 GLuint hexapod_meshes_for_lit_color_texture_program = 0;
 Load< MeshBuffer > hexapod_meshes(LoadTagDefault, []() -> MeshBuffer const * {
@@ -62,6 +64,17 @@ PlayMode::PlayMode() : scene(*hexapod_scene) {
 	//start music loop playing:
 	// (note: position will be over-ridden in update())
 	leg_tip_loop = Sound::loop_3D(*dusty_floor_sample, 1.0f, get_leg_tip_position(), 10.0f);
+
+	//call load_scenes here to test
+	load_text_scenes();
+	for (int i = 0; i < scene_count; i++) {
+	  std::cout << textScenes[i].text << "\n";
+	  for (int j = 0; j < textScenes[i].choices_text.size(); j++) {
+      std::cout << textScenes[i].choices_text[j] + " goes to " + std::to_string(textScenes[i].next_scenes[j])<< "\n";
+    }
+	}
+	go_to_next_scene(0);
+	std::cout << "current scene text: " + textScenes[current_scene].text + "\n";
 }
 
 PlayMode::~PlayMode() {
@@ -233,4 +246,31 @@ void PlayMode::draw(glm::uvec2 const &drawable_size) {
 glm::vec3 PlayMode::get_leg_tip_position() {
 	//the vertex position here was read from the model in blender:
 	return lower_leg->make_local_to_world() * glm::vec4(-1.26137f, -11.861f, 0.0f, 1.0f);
+}
+
+void PlayMode::load_text_scenes() {
+  for (int i = 0; i < scene_count; i++) {
+    std::ifstream file ("textScenes/scene" + std::to_string(i) + ".txt");
+    std::string line;
+    TextScene textScene;
+    if (file.is_open()) {
+      while (std::getline (file,line)) {
+        std::cout << line << '\n';
+        if(line.rfind("-", 0) == 0) {
+          int arrow = line.find("->");
+          textScene.choices_text.emplace_back(line.substr(1, arrow - 1));
+          textScene.next_scenes.emplace_back(std::stoi(line.substr(arrow + 2, 1)));
+          textScene.choice_count++;
+        } else {
+          textScene.text = line;
+        }
+      }
+      file.close();
+      textScenes.emplace_back(textScene);
+    }
+  }
+}
+
+void PlayMode::go_to_next_scene(int choice) {
+  current_scene = textScenes[current_scene].next_scenes[choice];
 }
