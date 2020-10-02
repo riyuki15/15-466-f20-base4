@@ -7,6 +7,8 @@
 
 #include <vector>
 #include <deque>
+#include <ft2build.h>
+#include FT_FREETYPE_H
 
 struct PlayMode : Mode {
 	PlayMode();
@@ -18,6 +20,10 @@ struct PlayMode : Mode {
 	virtual void draw(glm::uvec2 const &drawable_size) override;
 	virtual void load_text_scenes();
 	virtual void go_to_next_scene(int choice);
+	
+	// Freetype initialization
+	FT_Library  library;   /* handle to library     */
+	FT_Face     face;      /* handle to face object */
 
 	//----- game state -----
 
