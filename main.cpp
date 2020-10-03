@@ -1,8 +1,8 @@
 //Mode.hpp declares the "Mode::current" static member variable, which is used to decide where event-handling, updating, and drawing events go:
 #include "Mode.hpp"
 
-//The 'PlayMode' mode plays the game:
-#include "PlayMode.hpp"
+//The 'demo_menu' mode for the menu:
+#include "demo_menu.hpp"
 
 //For asset loading:
 #include "Load.hpp"
@@ -99,7 +99,7 @@ int main(int argc, char **argv) {
 	call_load_functions();
 
 	//------------ create game mode + make current --------------
-	Mode::set_current(std::make_shared< PlayMode >());
+	Mode::set_current(demo_menu);
 
 	//------------ main loop ------------
 
