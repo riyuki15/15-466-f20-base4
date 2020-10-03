@@ -59,6 +59,20 @@ struct MenuMode : Mode {
 	};
 	std::vector< Item > items;
 
+  struct TextScene {
+      std::string text;
+      // text of the choices and the corresponding index of the following scene
+      std::vector< std::string > choices_text;
+      std::vector< int > next_scenes;
+      int choice_count = 0;
+  };
+
+  struct Menus {
+      int scene_count = 0;
+      int current_scene = 0;
+      std::vector< MenuMode::TextScene > textScenes;
+  };
+
 	//call to arrange items in a centered list:
 	void layout_items(float gap = 0.0f);
 
