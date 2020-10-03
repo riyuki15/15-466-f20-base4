@@ -35,6 +35,7 @@ struct MenuMode : Mode {
 	int8_t FONT_SIZE = 36;
 	hb_font_t *hb_font;
 	hb_buffer_t *hb_buffer;
+	float DEFAULT_DPI = 72.0f;
 
 	//----- menu state -----
 

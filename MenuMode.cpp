@@ -78,6 +78,7 @@ MenuMode::MenuMode(std::vector< Item > const& items_) : items(items_) {
 }
 
 MenuMode::~MenuMode() {
+	FT_Done_FreeType(library);
 }
 
 bool MenuMode::handle_event(SDL_Event const& evt, glm::uvec2 const& window_size) {
@@ -160,8 +161,8 @@ void MenuMode::draw(glm::uvec2 const& drawable_size) {
 			hb_buffer_set_script(hb_buffer, HB_SCRIPT_LATIN);
 			hb_buffer_set_language(hb_buffer, hb_language_from_string("en", -1));
 
-			// FT_Set_Pixel_Sizes(face, 48, 48);
-      		// hb_font = hb_ft_font_create_referenced(face);
+			FT_Set_Char_Size(face, 0, 12 * 64, DEFAULT_DPI, DEFAULT_DPI);
+      		// hb_font = hb_ft_font_create(face, nullptr);
 
 			/* Shape it! */
 			// hb_shape (hb_font, hb_buffer, NULL, 0);
