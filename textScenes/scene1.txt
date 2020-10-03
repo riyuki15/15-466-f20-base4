@@ -1,4 +1,4 @@
 this is scene 1
--choice 1->2
--choice 2->3
--choice 3->0
+-go to 0->0
+-go to 2->2
+-stay at 1->1
