@@ -17,8 +17,10 @@
 
 // TEMPORARY DrawLines for temp text rendering
 #include "DrawLines.hpp"
+#include "DrawTexts.hpp"
 
 #include <random>
+#include <iostream>
 
 Load< Sound::Sample > sound_click(LoadTagDefault, []() -> Sound::Sample* {
 	std::vector< float > data(size_t(48000 * 0.2f), 0.0f);
@@ -45,29 +47,6 @@ Load< Sound::Sample > sound_clonk(LoadTagDefault, []() -> Sound::Sample* {
 	});
 
 MenuMode::MenuMode(std::vector< Item > const& items_) : items(items_) {
-	ft_error = FT_Init_FreeType( &library );
-	if (ft_error) { std::runtime_error("Freetype library error: " + std::to_string(ft_error));}
-
-	ft_error = FT_New_Face(library,
-						data_path("blue-eyes.ttf").data(),
-						0,
-						&face );
-	if (ft_error == FT_Err_Unknown_File_Format) {	
-		std::runtime_error("The font file could be opened and read, but it appears that its font format is unsupported");
-	} else if (ft_error) { 
-		std::runtime_error("Another error code means that the font file could not be opened or read, or that it is broken.");
-	}
-
-	// ft_error = FT_Set_Char_Size(face, FONT_SIZE*64, FONT_SIZE*64, 72, 72);
-	// if (ft_error) {
-	// 	std::runtime_error("Set char size failed.");
-	// }
-	
-	// hb_font = hb_ft_font_create_referenced(face);
-
-	// /* Create hb-buffer and populate. */
-	// hb_buffer = hb_buffer_create();
-
 	//select first item which can be selected:
 	for (uint32_t i = 0; i < items.size(); ++i) {
 		if (items[i].on_select) {
@@ -141,41 +120,18 @@ void MenuMode::draw(glm::uvec2 const& drawable_size) {
 	}
 
 	//use alpha blending:
-	/*glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);*/
+	// glEnable(GL_BLEND);
+	// glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	//don't use the depth test:
 	glDisable(GL_DEPTH_TEST);
 
-	//float bounce = (0.25f - (select_bounce_acc - 0.5f) * (select_bounce_acc - 0.5f)) / 0.25f * select_bounce_amount;
-
 	{ //draw the menu using DrawSprites:
-
 		float y_offset = 0.0f;
+		
 		for (auto const& item : items) {
 			bool is_selected = (&item == &items[0] + selected);
 			// TEMP text rendering. TODO - Replace with better text stuff
-			hb_buffer = hb_buffer_create();
-      		hb_buffer_add_utf8(hb_buffer, item.name.data(), -1, 0, -1);
-			hb_buffer_set_direction(hb_buffer, HB_DIRECTION_LTR);
-			hb_buffer_set_script(hb_buffer, HB_SCRIPT_LATIN);
-			hb_buffer_set_language(hb_buffer, hb_language_from_string("en", -1));
 
-			// FT_Set_Pixel_Sizes(face, 48, 48);
-      		// hb_font = hb_ft_font_create_referenced(face);
-
-			/* Shape it! */
-			// hb_shape (hb_font, hb_buffer, NULL, 0);
-
-			/* Get glyph information and positions out of the buffer. */
-			// unsigned int len = hb_buffer_get_length (hb_buffer);
-			// unsigned int glyph_count;
-			// hb_glyph_info_t *glyph_info    = hb_buffer_get_glyph_infos(hb_buffer, &glyph_count);
-      		// hb_glyph_position_t *glyph_pos = hb_buffer_get_glyph_positions(hb_buffer, &glyph_count);
-    
-
-
-			/* Shape it! */
-			// hb_shape (hb_font, hb_buffer, NULL, 0);
 			float aspect = float(drawable_size.x) / float(drawable_size.y);
 			DrawLines lines(glm::mat4(
 				1.0f / aspect, 0.0f, 0.0f, 0.0f,
@@ -183,21 +139,30 @@ void MenuMode::draw(glm::uvec2 const& drawable_size) {
 				0.0f, 0.0f, 1.0f, 0.0f,
 				0.0f, 0.0f, 0.0f, 1.0f
 			));
+			DrawTexts texts(glm::mat4(
+				1.0f / aspect, 0.0f, 0.0f, 0.0f,
+				0.0f, 1.0f, 0.0f, 0.0f,
+				0.0f, 0.0f, 1.0f, 0.0f,
+				0.0f, 0.0f, 0.0f, 1.0f));
+
 
 			// Level/freeplay text
 			//std::cout << "item.name: " << item.name << std::endl;
 			constexpr float H = 0.2f;
-			glm::u8vec4 color = (is_selected ? glm::u8vec4(0xff, 0xff, 0xff, 0x00) : glm::u8vec4(0x00, 0x00, 0x00, 0x00));
+			glm::u8vec4 color = (is_selected ? glm::u8vec4(0x00, 0x00, 0x00, 0xff) : glm::u8vec4(0x00, 0x00, 0x00, 0xff));
 			lines.draw_text(item.name,
 				glm::vec3(-aspect + 0.1f * H, 1.0f - 1.1f * H + y_offset, 0.0),
 				glm::vec3(H, 0.0f, 0.0f), glm::vec3(0.0f, H, 0.0f),
 				color
 			);
 
+			// texts.draw_texts(item.name, glm::vec3(-aspect + 0.1f * H, 1.0f - 1.1f * H + y_offset, 0.0), color);
+			
 			y_offset -= 0.5f;
+			break;
 		}
+		
 	} //<-- gets drawn here!
-
 
 	GL_ERRORS(); //PARANOIA: print errors just in case we did something wrong.
 }

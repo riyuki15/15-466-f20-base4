@@ -5,6 +5,8 @@
 #include "gl_errors.hpp"
 
 #include <glm/gtc/type_ptr.hpp>
+#include <glm/gtx/string_cast.hpp>
+#include <glm/ext.hpp>
 
 //All DrawLines instances share a vertex array object and vertex buffer, initialized at load time:
 
@@ -123,8 +125,11 @@ void DrawLines::draw_text(std::string const &text, glm::vec3 const &anchor_in, g
 		} else {
 			for (uint32_t c = PathFont::font.glyph_coord_starts[glyph]; c + 1 < PathFont::font.glyph_coord_starts[glyph+1]; c += 2) {
 				attribs.emplace_back(anchor + x * PathFont::font.coords[c] + y * PathFont::font.coords[c+1], color);
+				std::cout << text.substr(start, end-start) + " anchor: " + glm::to_string(anchor) + 
+						" position: " + glm::to_string(anchor + x * PathFont::font.coords[c] + y * PathFont::font.coords[c+1]) << std::endl;
 			}
 			anchor += x * PathFont::font.glyph_widths[glyph];
+			std::cout << "width: " + std::to_string(PathFont::font.glyph_widths[glyph]) << std::endl;
 		}
 		start = end;
 	}

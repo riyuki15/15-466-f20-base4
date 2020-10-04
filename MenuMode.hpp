@@ -16,6 +16,7 @@
 #include <ft2build.h>
 #include <hb-ft.h>
 #include <hb.h>
+
 #include FT_FREETYPE_H
 
 struct MenuMode : Mode {
@@ -27,15 +28,7 @@ struct MenuMode : Mode {
 	virtual bool handle_event(SDL_Event const&, glm::uvec2 const& window_size) override;
 	virtual void update(float elapsed) override;
 	virtual void draw(glm::uvec2 const& drawable_size) override;
-
-	//----- font ------
-	FT_Library  library;   /* handle to library     */
-	FT_Face     face;      /* handle to face object */
-	FT_Error ft_error;
-	int8_t FONT_SIZE = 36;
-	hb_font_t *hb_font;
-	hb_buffer_t *hb_buffer;
-
+	
 	//----- menu state -----
 
 	//Each menu item is an "Item":
