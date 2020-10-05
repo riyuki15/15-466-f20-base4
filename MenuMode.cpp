@@ -127,31 +127,20 @@ void MenuMode::draw(glm::uvec2 const& drawable_size) {
 
 	{ //draw the menu using DrawSprites:
 		float y_offset = 0.0f;
-		
+		glm::vec3 anchor = glm::vec3(50.0f, 500.0f, 1.0f);
+
 		for (auto const& item : items) {
 			bool is_selected = (&item == &items[0] + selected);
 
 			glm::mat4 projection = glm::ortho(0.0f, static_cast<float>(drawable_size.x), 0.0f, static_cast<float>(drawable_size.y));
-			// float aspect = float(drawable_size.x) / float(drawable_size.y);
-			// DrawLines lines(glm::mat4(
-			// 	1.0f / aspect, 0.0f, 0.0f, 0.0f,
-			// 	0.0f, 1.0f, 0.0f, 0.0f,
-			// 	0.0f, 0.0f, 1.0f, 0.0f,
-			// 	0.0f, 0.0f, 0.0f, 1.0f
-			// ));
 			DrawTexts texts(projection);
 
 			// Level/freeplay text
 			glm::u8vec4 color = (is_selected ? glm::u8vec4(0xff, 0xff, 0xff, 0x00) : glm::u8vec4(0x00, 0x00, 0x00, 0x00));
-			// lines.draw_text(item.name,
-			// 	glm::vec3(-aspect + 0.1f * H, 1.0f - 1.1f * H + y_offset, 0.0),
-			// 	glm::vec3(H, 0.0f, 0.0f), glm::vec3(0.0f, H, 0.0f),
-			// 	color
-			// );
-
-			texts.draw_texts(item.name, glm::vec3(250.0f, 250.0f, 1.0f), 5.0f, color);
+			texts.draw_texts(item.name, anchor, 1.0f, color);
 			
 			y_offset -= 0.5f;
+			anchor.y -= 50.0f;
 		}
 		
 	} //<-- gets drawn here!
