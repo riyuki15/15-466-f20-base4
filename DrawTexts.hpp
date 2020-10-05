@@ -35,27 +35,28 @@ struct DrawTexts {
 	hb_buffer_t *hb_buffer;
 
 	glm::mat4 world_to_clip;
-	// struct Vertex {
-	// 	Vertex(glm::vec3 const &Position_, glm::u8vec4 const &Color_, glm::vec2 const &Texture_) : Position(Position_), Color(Color_), Texture(Texture_){ }
-	// 	glm::vec3 Position;
-	// 	glm::u8vec4 Color;
-	// 	glm::vec2 Texture;
-	// };
-
 	struct Vertex {
-		Vertex(glm::vec3 const &Position_, glm::u8vec4 const &Color_) : Position(Position_), Color(Color_){ }
+		Vertex(glm::vec3 const &Position_, glm::vec2 const &TexCoord_, glm::u8vec4 const &Color_) : Position(Position_), TexCoord(TexCoord_), Color(Color_) { }
 		glm::vec3 Position;
+		glm::vec2 TexCoord;
 		glm::u8vec4 Color;
 	};
+
+	// struct Vertex {
+	// 	Vertex(glm::vec3 const &Position_, glm::u8vec4 const &Color_) : Position(Position_), Color(Color_){ }
+	// 	glm::vec3 Position;
+	// 	glm::u8vec4 Color;
+	// };
 	std::vector< Vertex > attribs;
 
 	/// Holds all state information relevant to a character as loaded using FreeType
 	struct Character {
-		unsigned int TextureID; // ID handle of the glyph texture
-		glm::ivec2   Size;      // Size of glyph
-		glm::ivec2   Bearing;   // Offset from baseline to left/top of glyph
-		unsigned int Advance;   // Horizontal offset to advance to next glyph
+		Character(GLuint const &TextureID_, glm::vec2 const &Size_, glm::vec2 const &Bearing_, double const &Advance_) : 
+			TextureID(TextureID_), Size(Size_), Bearing(Bearing_), Advance(Advance_) {}
+		GLuint TextureID; // ID handle of the glyph texture
+		glm::vec2   Size;      // Size of glyph
+		glm::vec2   Bearing;   // Offset from baseline to left/top of glyph
+		double Advance;   // Horizontal offset to advance to next glyph
 	};
 
-	std::map<GLchar, Character> Characters;
 };

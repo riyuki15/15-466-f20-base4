@@ -120,14 +120,14 @@ void MenuMode::draw(glm::uvec2 const& drawable_size) {
 	}
 
 	//use alpha blending:
-	// glEnable(GL_BLEND);
-	// glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glEnable(GL_CULL_FACE);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	//don't use the depth test:
 	glDisable(GL_DEPTH_TEST);
 
 	{ //draw the menu using DrawSprites:
-		float y_offset = 0.0f;
-		glm::vec3 anchor = glm::vec3(50.0f, 500.0f, 1.0f);
+		glm::vec3 anchor = glm::vec3(25.0f, 1000.0f, 1.0f);
 
 		for (auto const& item : items) {
 			bool is_selected = (&item == &items[0] + selected);
@@ -137,10 +137,8 @@ void MenuMode::draw(glm::uvec2 const& drawable_size) {
 
 			// Level/freeplay text
 			glm::u8vec4 color = (is_selected ? glm::u8vec4(0xff, 0xff, 0xff, 0x00) : glm::u8vec4(0x00, 0x00, 0x00, 0x00));
-			texts.draw_texts(item.name, anchor, 1.0f, color);
-			
-			y_offset -= 0.5f;
-			anchor.y -= 50.0f;
+			texts.draw_texts(item.name, anchor, 5.0f, color);
+			anchor.y -= 200.0f;
 		}
 		
 	} //<-- gets drawn here!
