@@ -2,6 +2,7 @@
 
 #include "gl_compile_program.hpp"
 #include "gl_errors.hpp"
+#include <glm/gtx/string_cast.hpp>
 
 Load< ColorTextureProgram > color_texture_program(LoadTagEarly);
 
@@ -44,6 +45,7 @@ ColorTextureProgram::ColorTextureProgram() {
 	OBJECT_TO_CLIP_mat4 = glGetUniformLocation(program, "OBJECT_TO_CLIP");
 	GLuint TEX_sampler2D = glGetUniformLocation(program, "TEX");
 
+	
 	//set TEX to always refer to texture binding zero:
 	glUseProgram(program); //bind program -- glUniform* calls refer to this program now
 

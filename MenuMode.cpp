@@ -149,17 +149,17 @@ void MenuMode::draw(glm::uvec2 const& drawable_size) {
 			// Level/freeplay text
 			//std::cout << "item.name: " << item.name << std::endl;
 			constexpr float H = 0.2f;
-			glm::u8vec4 color = (is_selected ? glm::u8vec4(0x00, 0x00, 0x00, 0xff) : glm::u8vec4(0x00, 0x00, 0x00, 0xff));
-			lines.draw_text(item.name,
-				glm::vec3(-aspect + 0.1f * H, 1.0f - 1.1f * H + y_offset, 0.0),
-				glm::vec3(H, 0.0f, 0.0f), glm::vec3(0.0f, H, 0.0f),
-				color
-			);
+			glm::u8vec4 color = (is_selected ? glm::u8vec4(0xff, 0xff, 0xff, 0x00) : glm::u8vec4(0x00, 0x00, 0x00, 0x00));
+			// lines.draw_text(item.name,
+			// 	glm::vec3(-aspect + 0.1f * H, 1.0f - 1.1f * H + y_offset, 0.0),
+			// 	glm::vec3(H, 0.0f, 0.0f), glm::vec3(0.0f, H, 0.0f),
+			// 	color
+			// );
 
-			// texts.draw_texts(item.name, glm::vec3(-aspect + 0.1f * H, 1.0f - 1.1f * H + y_offset, 0.0), color);
+			texts.draw_texts(item.name, glm::vec3(-aspect + 0.1f * H, 1.0f - 1.1f * H + y_offset, 0.0), 
+							glm::vec3(H, 0.0f, 0.0f), glm::vec3(0.0f, H, 0.0f), color);
 			
 			y_offset -= 0.5f;
-			break;
 		}
 		
 	} //<-- gets drawn here!
