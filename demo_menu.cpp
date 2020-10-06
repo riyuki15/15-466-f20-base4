@@ -4,6 +4,8 @@
 #include "Load.hpp"
 #include "data_path.hpp"
 
+#include "PlayMode.hpp"
+
 #include <iostream>
 #include <fstream>
 
