@@ -1,0 +1,3 @@
+Which way shall we go?
+-left (breadcrumbs)
+-right (sushi!)

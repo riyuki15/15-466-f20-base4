@@ -1,3 +1,2 @@
-this is scene 0
--go to 1->1
--go to 2->2
+-start
+-instructions

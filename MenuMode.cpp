@@ -128,6 +128,8 @@ void MenuMode::draw(glm::uvec2 const& drawable_size) {
 
 	{ //draw the menu using DrawSprites:
 		glm::vec3 anchor = glm::vec3(25.0f, 1000.0f, 1.0f);
+    // TODO: anchor is different value for different monitors?
+		anchor = glm::vec3(25.0f, 650.0f, 1.0f);
 
 		for (auto const& item : items) {
 			bool is_selected = (&item == &items[0] + selected);
@@ -137,7 +139,8 @@ void MenuMode::draw(glm::uvec2 const& drawable_size) {
 
 			// Level/freeplay text
 			glm::u8vec4 color = (is_selected ? glm::u8vec4(0xff, 0xff, 0xff, 0x00) : glm::u8vec4(0x00, 0x00, 0x00, 0x00));
-			texts.draw_texts(item.name, anchor, 5.0f, color);
+      // TODO: font size is different value for different monitors?
+			texts.draw_texts(item.name, anchor, 1.0f, color);
 			anchor.y -= 200.0f;
 		}
 		

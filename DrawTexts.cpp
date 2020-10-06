@@ -107,7 +107,7 @@ void DrawTexts::draw_texts(std::string const &text,
 	* from https://github.com/harfbuzz/harfbuzz-tutorial/blob/master/hello-harfbuzz-freetype.c
 	*/
 
-	std::cout << "trying to draw: " << text << std::endl;
+//	std::cout << "trying to draw: " << text << std::endl;
 
 	hb_buffer_add_utf8(hb_buffer, text.data(), -1, 0, -1);
 	hb_buffer_set_direction(hb_buffer, HB_DIRECTION_LTR);
@@ -201,7 +201,7 @@ void DrawTexts::draw_texts(std::string const &text,
         float w = ch.Size.x * scale;
         float h = ch.Size.y * scale;
 
-		printf("x_pos=%f y_pos=%f w=%f h=%f\n", x_pos, y_pos, w, h);
+//		printf("x_pos=%f y_pos=%f w=%f h=%f\n", x_pos, y_pos, w, h);
 
 		// update VBO for each character
         float vertices[6][4] = {

@@ -6,3 +6,8 @@
 //#include <memory>
 
 extern std::shared_ptr< MenuMode > demo_menu;
+extern std::shared_ptr< MenuMode > over_menu;
+extern std::shared_ptr< MenuMode > instr_menu;
+extern std::vector< std::shared_ptr< MenuMode > > menuModes;
+// TODO: remember to change this when adding/removing a text scene!!
+extern int total_scenes;

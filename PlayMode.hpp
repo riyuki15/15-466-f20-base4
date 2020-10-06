@@ -11,8 +11,10 @@
 #include FT_FREETYPE_H
 
 struct PlayMode : Mode {
-	PlayMode();
+	PlayMode(int cur);
 	virtual ~PlayMode();
+
+	int cur_scene;
 
 	//functions called by main loop:
 	virtual bool handle_event(SDL_Event const &, glm::uvec2 const &window_size) override;
@@ -29,21 +31,22 @@ struct PlayMode : Mode {
 	struct Button {
 		uint8_t downs = 0;
 		uint8_t pressed = 0;
-	} left, right, down, up;
+	} left, right, down, up, enter;
 
   //local copy of the game scene (so code can change it during gameplay):
   Scene scene;
 
 	//hexapod leg to wobble:
-	Scene::Transform *hip = nullptr;
-	Scene::Transform *upper_leg = nullptr;
-	Scene::Transform *lower_leg = nullptr;
-	glm::quat hip_base_rotation;
-	glm::quat upper_leg_base_rotation;
-	glm::quat lower_leg_base_rotation;
-	float wobble = 0.0f;
+	Scene::Transform *ground = nullptr;
+	Scene::Transform *gourmet = nullptr;
+	std::vector < Scene::Transform* > crumbs;
 
-	glm::vec3 get_leg_tip_position();
+	int crumbs_count = 3;
+
+	float amplitude = 0.001f;
+	float t = 0.f;
+
+	bool next_pressed = false;
 
 	//music coming from the tip of the leg (as a demonstration):
 	std::shared_ptr< Sound::PlayingSample > leg_tip_loop;
