@@ -9,6 +9,7 @@
 
 //#include "Sprite.hpp"
 #include "Mode.hpp"
+#include "PlayMode.hpp"
 
 #include <vector>
 #include <functional>
@@ -95,6 +96,6 @@ struct MenuMode : Mode {
 	// background->draw() is called at the start of draw()
 	//IMPORTANT NOTE: this means that if background->draw() ends up deleting this (e.g., by removing
 	//  the last shared_ptr that references it), then it will crash. Don't do that!
-	std::shared_ptr< Mode > background;
+	std::shared_ptr< Mode > background = std::shared_ptr<PlayMode>();
 
 };
