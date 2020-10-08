@@ -129,19 +129,22 @@ void MenuMode::draw(glm::uvec2 const& drawable_size) {
 	{ //draw the menu using DrawSprites:
 		glm::vec3 anchor = glm::vec3(25.0f, 1000.0f, 1.0f);
     // TODO: anchor is different value for different monitors?
-		anchor = glm::vec3(25.0f, 650.0f, 1.0f);
+		anchor = glm::vec3(25.0f, 1250.0f, 1.0f);
 
 		for (auto const& item : items) {
 			bool is_selected = (&item == &items[0] + selected);
 
 			glm::mat4 projection = glm::ortho(0.0f, static_cast<float>(drawable_size.x), 0.0f, static_cast<float>(drawable_size.y));
-			DrawTexts texts(projection);
+			std::string fontname = item.isTitle? "the-texterius.otf" : "stay-happy.otf";
+			
+			DrawTexts texts(projection, fontname);
+			glm::u8vec4 color = (is_selected ? glm::u8vec4(0xff, 0xff, 0xff, 0x00) : glm::u8vec4(0x00, 0x00, 0x00, 0x00));
 
 			// Level/freeplay text
-			glm::u8vec4 color = (is_selected ? glm::u8vec4(0xff, 0xff, 0xff, 0x00) : glm::u8vec4(0x00, 0x00, 0x00, 0x00));
-      // TODO: font size is different value for different monitors?
-			texts.draw_texts(item.name, anchor, 1.0f, color);
-			anchor.y -= 200.0f;
+      		// TODO: font size is different value for different monitors?
+	  		texts.draw_texts(item.content, anchor, 1.0f, color);
+			float offset = item.isTitle ? 50.0f : 100.0f;
+			anchor.y -= offset;
 		}
 		
 	} //<-- gets drawn here!

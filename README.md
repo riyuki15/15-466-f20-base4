@@ -1,10 +1,15 @@
-# (TODO: your game's title)
+# Gretel
 
-Author: (TODO: your name)
+Author: Michelle Chang, Qingyi Dong
 
-Design: (TODO: In two sentences or fewer, describe what is new and interesting about your game.)
+Design: 
 
-Text Drawing: (TODO: how does the text drawing in this game work? Is text precomputed? Rendered at runtime? What files or utilities are involved?)
+A of the famous German fairy tale. You will be playing Gretel, and manage to guide her home.
+
+Text Drawing: 
+- render quads of texts using Freetype and Harfbuzz
+- render font bitmaps stored in Freetype's face object as textures
+- texts are rendered at runtime
 
 Screen Shot:
 
@@ -12,9 +17,13 @@ Screen Shot:
 
 How To Play:
 
-(TODO: describe the controls and (if needed) goals/strategy.)
+- Try to indicate which of the sweets Gretel left on the road to guide her home from the plot.
+- Use UP/DOWN arrow keys to switch among the choices.
+- Use ENTER key to confirm selecting the choice or proceed to the next text scene.
 
-Sources: (TODO: list a source URL for any assets you did not create yourself. Make sure you have a license for the asset.)
+Sources: 
+
+- Voxel characters created with [MagicaVoxel](https://ephtracy.github.io/)
 
 This game was built with [NEST](NEST.md).
 

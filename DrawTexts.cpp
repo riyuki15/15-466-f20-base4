@@ -12,73 +12,13 @@
 static GLuint VAO = 0;
 static GLuint VBO = 0;
 
-// static Load< void > setup_buffers(LoadTagDefault, [](){
-// 	//you may recognize this init code from PongMode.cpp in base0:
 
-// 	{ //set up vertex buffer:
-// 		glGenBuffers(1, &vertex_buffer);
-// 		//for now, buffer will be un-filled.
-// 	}
-
-// 	{ //vertex array mapping buffer for color_texture_program:
-// 		//ask OpenGL to fill vertex_buffer_for_color_texture_program with the name of an unused vertex array object:
-// 		glGenVertexArrays(1, &vertex_buffer_for_color_texture_program);
-
-// 		//set vertex_buffer_for_color_texture_program as the current vertex array object:
-// 		glBindVertexArray(vertex_buffer_for_color_texture_program);
-
-// 		//set vertex_buffer as the source of glVertexAttribPointer() commands:
-// 		glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer);
-
-// 		//set up the vertex array object to describe arrays of PongMode::Vertex:
-// 		glVertexAttribPointer(
-// 			color_texture_program->Position_vec4, //attribute
-// 			2, //size
-// 			GL_FLOAT, //type
-// 			GL_FALSE, //normalized
-// 			sizeof(DrawTexts::Vertex), //stride
-// 			(GLbyte *)0 + offsetof(DrawTexts::Vertex, Position) //offset
-// 		);
-// 		glEnableVertexAttribArray(color_texture_program->Position_vec4);
-// 		//[Note that it is okay to bind a vec3 input to a vec4 attribute -- the w component will be filled with 1.0 automatically]
-
-// 		glVertexAttribPointer(
-// 			color_texture_program->TexCoord_vec2, //attribute
-// 			2, //size
-// 			GL_FLOAT, //type
-// 			GL_FALSE, //normalized
-// 			sizeof(DrawTexts::Vertex), //stride
-// 			(GLbyte *)0 + offsetof(DrawTexts::Vertex, TexCoord) //offset
-// 		);
-// 		glEnableVertexAttribArray(color_texture_program->TexCoord_vec2);
-
-// 		glVertexAttribPointer(
-// 			color_texture_program->Color_vec4, //attribute
-// 			4, //size
-// 			GL_UNSIGNED_BYTE, //type
-// 			GL_TRUE, //normalized
-// 			sizeof(DrawTexts::Vertex), //stride
-// 			(GLbyte *)0 + offsetof(DrawTexts::Vertex, Color) //offset
-// 		);
-// 		glEnableVertexAttribArray(color_texture_program->Color_vec4);
-
-// 		//done referring to vertex_buffer, so unbind it:
-// 		glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-// 		//done setting up vertex array object, so unbind it:
-// 		glBindVertexArray(0);
-// 	}
-
-// 	GL_ERRORS(); //PARANOIA: make sure nothing strange happened during setup
-// });
-
-
-DrawTexts::DrawTexts(glm::mat4 const &world_to_clip_) : world_to_clip(world_to_clip_) {
+DrawTexts::DrawTexts(glm::mat4 const &world_to_clip_, std::string fontname) : world_to_clip(world_to_clip_) {
     ft_error = FT_Init_FreeType( &library );
 	if (ft_error) { std::runtime_error("Freetype library error: " + std::to_string(ft_error));}
 
 	ft_error = FT_New_Face(library,
-				data_path("blue-eyes.otf").c_str(),
+				data_path(fontname).c_str(),
 				0,
 				&face );
 	if (ft_error == FT_Err_Unknown_File_Format) {	
@@ -196,7 +136,7 @@ void DrawTexts::draw_texts(std::string const &text,
         Character ch = Characters[i];
 
         float x_pos = anchor.x + ch.Bearing.x * scale;
-        float y_pos = anchor.y - (ch.Size.y - ch.Bearing.y) * scale;
+        float y_pos = anchor.y - (ch.Bearing.y) * scale;
 
         float w = ch.Size.x * scale;
         float h = ch.Size.y * scale;

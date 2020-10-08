@@ -190,7 +190,7 @@ void PlayMode::update(float elapsed) {
 //	leg_tip_loop->set_position(get_leg_tip_position(), 1.0f / 60.0f);
 
   if (enter.pressed && !next_pressed) {
-    Mode::set_current(menuModes[cur_scene + 2]);
+    Mode::set_current(menuModes[cur_scene + 3]);
     next_pressed = true;
   }
 

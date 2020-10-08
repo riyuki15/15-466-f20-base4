@@ -14,7 +14,7 @@
 
 struct DrawTexts {
 	//Start drawing; will remember world_to_clip matrix:
-	DrawTexts(glm::mat4 const &world_to_clip);
+	DrawTexts(glm::mat4 const &world_to_clip, std::string fontname);
 
 	//draw wireframe text, start at anchor, move in x direction, mat gives x and y directions for text drawing:
 	// (default character box is 1 unit high)

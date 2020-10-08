@@ -1,3 +1,16 @@
-Which way shall we go?
--left (cheesecake!)
+Gretel is a little girl who ran away from home after having quarrels with her parents. 
+She only took some of her favourite snacks with her and unfortunately, 
+she got lost in the forest, 
+where she fell into the hands of a cannibalistic witch living in a house made of 
+gingerbread, cake, confection, sweets, and many other treats and pastries. 
+The witch intended to fatten her before eventually eating her, 
+but Gretel outwitted the witch and killed her. 
+She escaped from the witch's house, and wants to return home. 
+She is very clever and put snacks every few steps away to guide her home. 
+
+Which way shall she go?
+
+-left (cheesecake)
 -right (breadcrumbs)
+
+*0

@@ -1,3 +1,19 @@
+She is only one turn away from her home!
+Gretel knows it, 
+because she remember that leftover sushi was the second guide she put on the road.
+She does not like sushi, and she does not like donuts either.
+Gretel's mom is a big fan of Japanese cuisine.
+That's partially the reason why she had a big quarrel with her father and mother.
+Today is Gretel's birthday,
+but nobody cares about what she really likes.
+She got a big box of donuts, 
+but the only present she wanted is a big cholocate birthday cake,
+However, now she realized.
+She wants nothing but everyone's smile.
+She felt happy enough spending time with her family.
+
 Which way shall we go?
--left (donut!)
--right (bread crumbs)
+-left (donut)
+-right (chocolate candy)
+
+*0

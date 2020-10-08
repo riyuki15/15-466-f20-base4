@@ -1,2 +1,5 @@
-Instructions
+Instructions: 
+Hit UP/DOWN to select one of the choices.
+Hit Enter to select the choice / proceed to the next scene.
+
 -Back

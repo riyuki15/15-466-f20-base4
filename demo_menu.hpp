@@ -6,6 +6,7 @@
 //#include <memory>
 
 extern std::shared_ptr< MenuMode > demo_menu;
-extern std::shared_ptr< MenuMode > over_menu;
+extern std::shared_ptr< MenuMode > good_over_menu;
+extern std::shared_ptr< MenuMode > bad_over_menu;
 extern std::shared_ptr< MenuMode > instr_menu;
 extern std::vector< std::shared_ptr< MenuMode > > menuModes;
